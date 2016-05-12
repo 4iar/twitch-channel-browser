@@ -28,10 +28,58 @@
 <script type="text/javascript" src="js/twitch_viewer.js"></script>
 
 <div class="container">
-</div>
 
+    <div class="row center">
+        <div class="col m1 l1"></div>
+        <div class="col s12 m10 l10" id="main">
+
+            <ul class="collection">
+                <li class="collection-header">Twitch TV browser</li>
+
+                <li class="collection-item avatar">
+                    <img class="circle" src="{{ channel.thumbnail }}">
+
+                    <a class="title left" href="{{ channel.url }}">{{ channel.name }}</a>
+
+                    <br>
+
+                    <p class="left">{{ channel.description }}</p>
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="col m1 l1"></div>
+
+    </div>
+</div>
 
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
