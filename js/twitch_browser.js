@@ -19,10 +19,6 @@ angular.module('twitchBrowser', [])
         
         $scope.channels = channelSubscriptionService.getChannelNames();
 
-        $scope.testy = function () {
-            return 32;
-        };
-
         $scope.addChannels = function addChannels(channel) {
             channelSubscriptionService.addChannelNames(channel);
         };
