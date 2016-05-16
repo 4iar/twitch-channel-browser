@@ -38,9 +38,10 @@ describe('Controller: channelSubscriptionManager', function () {
             spyOn(channelSubscriptionServiceMock, 'addChannelNames').and.callThrough();
             
             scope.addChannels('channel');
-            scope.addChannels(['channel3', 'channel59']);
+            expect(channelSubscriptionServiceMock.addChannelNames).toHaveBeenCalledWith('channel');
             
-            expect(channelSubscriptionServiceMock.addChannelNames).toHaveBeenCalledTimes(2);
+            scope.addChannels(['channel3', 'channel59']);
+            expect(channelSubscriptionServiceMock.addChannelNames).toHaveBeenCalledWith(['channel3', 'channel59']);
         });
     });
     
