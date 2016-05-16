@@ -24,7 +24,7 @@ angular.module('twitchBrowser', [])
         };
         
         $scope.deleteChannel = function (channel) {
-            return;
+            channelSubscriptionService.deleteChannel(channel);
         };
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
