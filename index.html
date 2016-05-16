@@ -17,6 +17,10 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!--Import AngularJS-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+
     <title>Twitch TV browser</title>
 </head>
 
@@ -27,16 +31,21 @@
 
 <script type="text/javascript" src="js/twitch_browser.js"></script>
 
-<div class="container" ng-controller="twitchBrowser">
+<div class="container" ng-app="twitchBrowser">
 
     <div class="row center">
         <div class="col m1 l1"></div>
         <div class="col s12 m10 l10" id="main">
 
+            <div ng-controller="channelSubscriptionManager">
+                {{channels}}
+
+            </div>
+
             <ul class="collection">
                 <li class="collection-header">Twitch TV browser</li>
 
-                <li class="collection-item avatar">
+                <li ng-repeat="channel in channels" class="collection-item avatar">
                     <img class="circle" src="{{ channel.thumbnail }}">
 
                     <a class="title left" href="{{ channel.url }}">{{ channel.name }}</a>
