@@ -28,5 +28,22 @@ angular.module('twitchBrowser', [])
         };
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
+
+        $scope.fetchChannelDataForSubscribedChannels = function () {
+            var channelNames = channelSubscriptionService.getChannelNames();
+
+            var channelDataArray = [];
+            for (var i = 0; i < channelNames.length; i++) {
+                channelDataArray.push(
+                    $scope.parseChannelData(channelNames[i])
+                )
+            };
+
+            return channelDataArray;
+        };
+
+
+
+
     });
 
