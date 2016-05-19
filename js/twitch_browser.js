@@ -29,7 +29,7 @@ angular.module('twitchBrowser', [])
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
-        $scope.fetchChannelDataForSubscribedChannels = function () {
+        $scope.updateChannels = function () {
             var channelNames = channelSubscriptionService.getChannelNames();
 
             var channelDataArray = [];

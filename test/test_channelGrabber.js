@@ -46,10 +46,10 @@ describe('Controller: channelGrabber', function () {
         return true;
     };
 
-    describe('fetchChannelDataForSubscribedChannels', function () {
+    describe('updateChannels', function () {
         it('should return an array of objects that contains data about subscribed channels', function () {
 
-            var channelDataArray = scope.fetchChannelDataForSubscribedChannels();
+            var channelDataArray = scope.updateChannels();
             expect(channelDataArray).toEqual(jasmine.any(Array));
 
             for (var i = 0; i < channelDataArray.length; i++) {
@@ -59,7 +59,7 @@ describe('Controller: channelGrabber', function () {
         });
         
         it('array length should correspond to the number of subscribed channels', function() {
-            var channelDataArray = scope.fetchChannelDataForSubscribedChannels();
+            var channelDataArray = scope.updateChannels();
             
             expect(channelDataArray.length).toBe(4)  // because we defined 4 in the mock service 
         });
