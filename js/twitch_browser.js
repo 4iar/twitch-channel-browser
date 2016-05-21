@@ -35,16 +35,23 @@ angular.module('twitchBrowser', [])
 
             channelSubscriptionService.getChannelNames().forEach(function (channelName) {
                 $http.get(endpointBaseUrl + channelName)
-                    .then(
-                        $scope.channels.push(
-                            $scope.parseChannelData("channel")
-                        )
-                    );
+                    .then(function (result) {
+                        $scope.channels.push($scope.parseChannelData(result.data));
+                    });
             });
         };
 
-
-
+        $scope.parseChannelData = function (data) {
+            var channelData = {
+                'name': data.display_name,
+                'url': data.url,
+                'description': data.status,
+                'online': (function (status) {if (!status) {return false} else {return true}})(data.status),
+                'avatarUrl': data.logo
+            };
+            
+            return channelData
+        };
 
     });
 

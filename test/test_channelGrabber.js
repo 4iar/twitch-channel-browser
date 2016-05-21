@@ -76,7 +76,54 @@ describe('Controller: channelGrabber', function () {
         it('array length should correspond to the number of subscribed channels', function() {
             var channelDataArray = scope.updateChannels();
             
-            expect(channelDataArray.length).toBe(4)  // because we defined 4 in the mock service 
+            expect(scope.channels).toEqual(23);
+        });
+    });
+
+
+    describe('parseChannel', function () {
+        // is this test redundant since we test for all props anyway?
+
+        // set up normal sample data
+        beforeEach(function () {
+            this.freeCodeCampData = {"mature":false,"status":"Local Weather Project - Nick LaBelle #programming","broadcaster_language":"en","display_name":"FreeCodeCamp","game":"Creative","language":"en","_id":79776140,"name":"freecodecamp","created_at":"2015-01-14T03:36:47Z","updated_at":"2016-05-21T20:02:15Z","delay":null,"logo":"https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png","banner":null,"video_banner":"https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-channel_offline_image-b8e133c78cd51cb0-1920x1080.png","background":null,"profile_banner":"https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_banner-6f5e3445ff474aec-480.png","profile_banner_background_color":null,"partner":false,"url":"https://www.twitch.tv/freecodecamp","views":148398,"followers":9678,"_links":{"self":"https://api.twitch.tv/kraken/channels/freecodecamp","follows":"https://api.twitch.tv/kraken/channels/freecodecamp/follows","commercial":"https://api.twitch.tv/kraken/channels/freecodecamp/commercial","stream_key":"https://api.twitch.tv/kraken/channels/freecodecamp/stream_key","chat":"https://api.twitch.tv/kraken/chat/freecodecamp","features":"https://api.twitch.tv/kraken/channels/freecodecamp/features","subscriptions":"https://api.twitch.tv/kraken/channels/freecodecamp/subscriptions","editors":"https://api.twitch.tv/kraken/channels/freecodecamp/editors","teams":"https://api.twitch.tv/kraken/channels/freecodecamp/teams","videos":"https://api.twitch.tv/kraken/channels/freecodecamp/videos"}};
+            
+            this.storbeckData = {"mature":null,"status":null,"broadcaster_language":null,"display_name":"storbeck","game":null,"language":"en","_id":86238744,"name":"storbeck","created_at":"2015-03-25T02:23:40Z","updated_at":"2016-05-20T14:00:35Z","delay":null,"logo":"https://static-cdn.jtvnw.net/jtv_user_pictures/storbeck-profile_image-7ab13c2f781b601d-300x300.jpeg","banner":null,"video_banner":null,"background":null,"profile_banner":null,"profile_banner_background_color":null,"partner":false,"url":"https://www.twitch.tv/storbeck","views":567,"followers":9,"_links":{"self":"https://api.twitch.tv/kraken/channels/storbeck","follows":"https://api.twitch.tv/kraken/channels/storbeck/follows","commercial":"https://api.twitch.tv/kraken/channels/storbeck/commercial","stream_key":"https://api.twitch.tv/kraken/channels/storbeck/stream_key","chat":"https://api.twitch.tv/kraken/chat/storbeck","features":"https://api.twitch.tv/kraken/channels/storbeck/features","subscriptions":"https://api.twitch.tv/kraken/channels/storbeck/subscriptions","editors":"https://api.twitch.tv/kraken/channels/storbeck/editors","teams":"https://api.twitch.tv/kraken/channels/storbeck/teams","videos":"https://api.twitch.tv/kraken/channels/storbeck/videos"}};
+        });
+
+
+        it('should return a channel data object', function () {
+            var returnValue = scope.parseChannelData(this.freeCodeCampData);
+            
+            expect(isChannelDataObject(returnValue)).toBeTruthy()
+        });
+
+        it('should return the correct channel name as a property', function () {
+            expect(scope.parseChannelData(this.freeCodeCampData).name).toBe('FreeCodeCamp');
+            expect(scope.parseChannelData(this.storbeckData).name).toBe('storbeck');
+        });
+
+        it('should return the url of the channel page as a property', function () {
+            expect(scope.parseChannelData(this.freeCodeCampData).url).toBe("https://www.twitch.tv/freecodecamp");
+            expect(scope.parseChannelData(this.storbeckData).url).toBe("https://www.twitch.tv/storbeck");
+        });
+
+        it('should return the avatar url as a property', function () {
+            expect(scope.parseChannelData(this.freeCodeCampData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png");
+            expect(scope.parseChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/storbeck-profile_image-7ab13c2f781b601d-300x300.jpeg");
+        });
+
+        it('should return the online/offline state as a boolean property', function () {
+            expect(scope.parseChannelData(this.freeCodeCampData).online).toBeTruthy();
+            expect(scope.parseChannelData(this.storbeckData).online).toBeFalsy();
+        });
+
+        it('should return a description of what is being streamed (as a property) if the stream is online', function () {
+            expect(scope.parseChannelData(this.freeCodeCampData).description).toBe("Local Weather Project - Nick LaBelle #programming");
+        });
+        
+        it('should set the description property to null if the stream is offline', function () {
+            expect(scope.parseChannelData(this.storbeckData).description).toBeNull()
         });
     });
 });
