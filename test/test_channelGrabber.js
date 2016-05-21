@@ -50,7 +50,7 @@ describe('Controller: channelGrabber', function () {
             'url',
             'description',
             'online',
-            'avatar'
+            'avatarUrl'
         ];
 
         for (var i = 0; i < expectedProperties.length; i++) {

@@ -30,16 +30,17 @@ angular.module('twitchBrowser', [])
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
         $scope.updateChannels = function () {
-            var channelNames = channelSubscriptionService.getChannelNames();
+            $scope.channels = [];
+            var endpointBaseUrl = 'https://api.twitch.tv/kraken/channels/';
 
-            var channelDataArray = [];
-            for (var i = 0; i < channelNames.length; i++) {
-                channelDataArray.push(
-                    $scope.parseChannelData(channelNames[i])
-                )
-            };
-
-            return channelDataArray;
+            channelSubscriptionService.getChannelNames().forEach(function (channelName) {
+                $http.get(endpointBaseUrl + channelName)
+                    .then(
+                        $scope.channels.push(
+                            $scope.parseChannelData("channel")
+                        )
+                    );
+            });
         };
 
 
