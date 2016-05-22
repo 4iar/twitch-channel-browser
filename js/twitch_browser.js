@@ -14,7 +14,7 @@ angular.module('twitchBrowser', [])
     })
     .controller("channelSubscriptionManager", function($scope, channelSubscriptionService) {
 
-        var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff"];
+        var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff", "kjaerbye98", "brunofin", "channelthatdoesnotexist"];
         channelSubscriptionService.addChannelNames(defaultChannelNames);
 
         $scope.addChannels = function addChannels(channel) {
