@@ -27,6 +27,30 @@ angular.module('twitchBrowser', [])
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
+        $scope.parseFailedChannelData = function (result) {
+            // bit of a hack - api error response doesn't return display_name, so we have to extract it
+            // from the request url
+            var channelName = result.config.url.split('/')[5]
+
+            return {
+                'name': channelName,
+                'url': "https://www.twitch.tv/" + channelName,
+                'description': result.data.message,
+                'online': false,
+                'avatarUrl': ""
+            };
+        };
+
+        $scope.parseSuccessfulChannelData = function (result) {
+            return {
+                'name': result.data.display_name,
+                'url': result.data.url,
+                'description': result.data.status,
+                'online': (function (status) {if (!status) {return false} else {return true}})(result.data.status),
+                'avatarUrl': result.data.logo
+            };
+        };
+        
         $scope.updateChannels = function () {
             $scope.channels = [];
             var endpointBaseUrl = 'https://api.twitch.tv/kraken/channels/';
@@ -34,22 +58,15 @@ angular.module('twitchBrowser', [])
             channelSubscriptionService.getChannelNames().forEach(function (channelName) {
                 $http.get(endpointBaseUrl + channelName)
                     .then(function (result) {
-                        $scope.channels.push($scope.parseChannelData(result.data));
+                        $scope.channels.push($scope.parseSuccessfulChannelData(result));
+                    })
+                    .catch(function (result) {
+                        // handle unavailable or missing channels
+                        $scope.channels.push($scope.parseFailedChannelData(result));
                     });
             });
         };
 
-        $scope.parseChannelData = function (data) {
-            var channelData = {
-                'name': data.display_name,
-                'url': data.url,
-                'description': data.status,
-                'online': (function (status) {if (!status) {return false} else {return true}})(data.status),
-                'avatarUrl': data.logo
-            };
-            
-            return channelData
-        };
-
+        $scope.updateChannels();
     });
 
