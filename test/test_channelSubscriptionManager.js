@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: channelSubscriptionManager', function () {
+describe('Service: channelSubscriptionManager', function () {
 
     beforeEach(module('twitchBrowser'));
 
@@ -34,7 +34,7 @@ describe('Controller: channelSubscriptionManager', function () {
     }));
     
     describe('addChannels', function () {
-        it('should call channelSubscriptionManager.addChannelNames with the channels to add', function () {
+        it('should call channelSubscriptionManager.addChannelNames with the channel names to add', function () {
             spyOn(channelSubscriptionServiceMock, 'addChannelNames').and.callThrough();
             
             scope.addChannels('channel');
@@ -46,7 +46,7 @@ describe('Controller: channelSubscriptionManager', function () {
     });
     
     describe('deleteChannel', function () {
-        it('should call channelSubscriptionManager.deleteChannel with the channels to add', function () {
+        it('should call channelSubscriptionManager.deleteChannel with the channel names to add', function () {
             spyOn(channelSubscriptionServiceMock, 'deleteChannel');
             
             scope.deleteChannel('channeltodelete1');
