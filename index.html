@@ -46,19 +46,12 @@
 
                     <p>{{ channel.description }}</p>
 
-                    <div ng-if="channel.online">
-                        <p><span class="label label-success">online</span></p>
-                    </div>
+                    <p ng-if="channel.online"><span class="label label-success">online</span></p>
 
-                    <div ng-if="!channel.online">
-                        <div ng-if="!channel.error">
-                            <p><span class="label label-default">offline</span></p>
-                        </div>
-
-                        <div ng-if="channel.error">
-                            <p><span class="label label-danger">error</span></p>
-                        </div>
-                    </div>
+                    <p ng-if="!channel.online" ng-switch="channel.error">
+                        <span ng-switch-when="false" class="label label-default">offline</span>
+                        <span ng-switch-when="true" class="label label-danger">error</span>
+                    </p>
                 </div>
             </div>
         </div>
