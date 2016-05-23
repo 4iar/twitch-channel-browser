@@ -5,12 +5,6 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" media="screen,projection" />
-
-    <!--Import my dodgy css-->
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-
     <!--Import Font-Awesome-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
 
@@ -20,47 +14,56 @@
     <!--Import AngularJS-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!--Import my dodgy css-->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+
 
     <title>Twitch TV browser</title>
 </head>
 
 <body>
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 
 <script type="text/javascript" src="js/twitch_browser.js"></script>
 
 <div class="container" ng-app="twitchBrowser">
 
-    <div class="row center">
-        <div class="col m1 l1"></div>
-        <div class="col s12 m10 l10" id="main">
-
-            <div ng-controller="channelSubscriptionManager">
-                {{channels}}
-
-            </div>
-
-            <ul class="collection">
-                <li class="collection-header">Twitch TV browser</li>
-
-                <li ng-repeat="channel in channels" class="collection-item avatar">
-                    <img class="circle" src="{{ channel.thumbnail }}">
-
-                    <a class="title left" href="{{ channel.url }}">{{ channel.name }}</a>
-
-                    <br>
-
-                    <p class="left">{{ channel.description }}</p>
-                </li>
-
-            </ul>
-
-        </div>
-        <div class="col m1 l1"></div>
-
+    <div ng-controller="channelSubscriptionManager">
     </div>
+
+    <div ng-controller="channelGrabber">
+
+        <div ng-repeat="channel in channels" id="channel">
+            <div class="row top-buffer">
+                <div class="col-md-1">
+                    <img class="img-circle img-responsive avatar-pic" src="{{ channel.avatarUrl }}">
+                </div>
+
+                <div class="col-md-11">
+                    <p><h4><a href="{{ channel.url }}" target="_blank">{{ channel.name }}</a></h4></p>
+
+                    <p>{{ channel.description }}</p>
+
+                    <div ng-if="channel.online">
+                        <p><span class="label label-success">online</span></p>
+                    </div>
+
+                    <div ng-if="!channel.online">
+                        <div ng-if="!channel.error">
+                            <p><span class="label label-default">offline</span></p>
+                        </div>
+
+                        <div ng-if="channel.error">
+                            <p><span class="label label-danger">error</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
