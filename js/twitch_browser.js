@@ -27,6 +27,14 @@ angular.module('twitchBrowser', [])
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
+        $scope.getAvatarUrl = function (avatarUrl) {
+            if (avatarUrl) {
+                return avatarUrl;
+            } else {
+                return "https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png";
+            }
+        };
+
         $scope.parseFailedChannelData = function (result) {
             // bit of a hack - api error response doesn't return display_name, so we have to extract it
             // from the request url
@@ -37,7 +45,7 @@ angular.module('twitchBrowser', [])
                 'url': "https://www.twitch.tv/" + channelName,
                 'description': result.data.message,
                 'online': false,
-                'avatarUrl': ""
+                'avatarUrl': $scope.getAvatarUrl(result.data.logo)
             };
         };
 
@@ -47,7 +55,7 @@ angular.module('twitchBrowser', [])
                 'url': result.data.url,
                 'description': result.data.status,
                 'online': (function (status) {if (!status) {return false} else {return true}})(result.data.status),
-                'avatarUrl': result.data.logo
+                'avatarUrl': $scope.getAvatarUrl(result.data.logo)
             };
         };
         

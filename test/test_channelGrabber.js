@@ -162,10 +162,18 @@ describe('Controller: channelGrabber', function () {
             expect(scope.parseSuccessfulChannelData(this.storbeckData).url).toBe("https://www.twitch.tv/storbeck");
         });
 
-        it('should return the avatar url as a property', function () {
+        it('if the user has an avatar, it should return the avatar url as a property', function () {
             expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png");
             expect(scope.parseSuccessfulChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/storbeck-profile_image-7ab13c2f781b601d-300x300.jpeg");
         });
+
+       it('should provide a placeholder avatar if the user does not have an avatar', function () {
+           this.freeCodeCampData.data.logo = null;
+           this.storbeckData.data.logo = null;
+           
+           expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
+           expect(scope.parseSuccessfulChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
+       });
 
         it('should return the online/offline state as a boolean property', function () {
             expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).online).toBeTruthy();
@@ -217,9 +225,9 @@ describe('Controller: channelGrabber', function () {
            expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).online).toBeFalsy();
        });
        
-       it('should set the avatarUrl property to an empty string', function () {
-           expect(scope.parseFailedChannelData(this.brunofinData).avatarUrl).toBe("");
-           expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).avatarUrl).toBe("");
+       it('should provide a placeholder avatar if the user does not have an avatar', function () {
+           expect(scope.parseFailedChannelData(this.brunofinData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
+           expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
        });
    });
 });
