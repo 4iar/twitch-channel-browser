@@ -31,7 +31,7 @@ angular.module('twitchBrowser', [])
             if (avatarUrl) {
                 return avatarUrl;
             } else {
-                return "https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png";
+                return "https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png";
             }
         };
 
