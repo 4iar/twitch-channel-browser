@@ -187,6 +187,12 @@ describe('Controller: channelGrabber', function () {
         it('should set the description property to null if the stream is offline', function () {
             expect(scope.parseSuccessfulChannelData(this.storbeckData).description).toBeNull()
         });
+        
+        it('should set the error property to false', function () {
+            expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).error).toBeFalsy()
+            expect(scope.parseSuccessfulChannelData(this.storbeckData).error).toBeFalsy()
+        });
+        
     });
     
    describe('parseFailedChannelData', function () {
@@ -228,6 +234,11 @@ describe('Controller: channelGrabber', function () {
        it('should provide a placeholder avatar if the user does not have an avatar', function () {
            expect(scope.parseFailedChannelData(this.brunofinData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
            expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
+       });
+       
+       it('should set the error property to true', function () {
+           expect(scope.parseFailedChannelData(this.brunofinData).error).toBeTruthy()
+           expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).error).toBeTruthy()
        });
    });
 });

@@ -45,7 +45,8 @@ angular.module('twitchBrowser', [])
                 'url': "https://www.twitch.tv/" + channelName,
                 'description': result.data.message,
                 'online': false,
-                'avatarUrl': $scope.getAvatarUrl(result.data.logo)
+                'avatarUrl': $scope.getAvatarUrl(result.data.logo),
+                'error': true
             };
         };
 
@@ -55,7 +56,8 @@ angular.module('twitchBrowser', [])
                 'url': result.data.url,
                 'description': result.data.status,
                 'online': (function (status) {if (!status) {return false} else {return true}})(result.data.status),
-                'avatarUrl': $scope.getAvatarUrl(result.data.logo)
+                'avatarUrl': $scope.getAvatarUrl(result.data.logo),
+                'error': false
             };
         };
         
