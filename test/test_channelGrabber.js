@@ -171,8 +171,8 @@ describe('Controller: channelGrabber', function () {
            this.freeCodeCampData.data.logo = null;
            this.storbeckData.data.logo = null;
            
-           expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
-           expect(scope.parseSuccessfulChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
+           expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
+           expect(scope.parseSuccessfulChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
        });
 
         it('should return the online/offline state as a boolean property', function () {
@@ -226,8 +226,8 @@ describe('Controller: channelGrabber', function () {
        });
        
        it('should provide a placeholder avatar if the user does not have an avatar', function () {
-           expect(scope.parseFailedChannelData(this.brunofinData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
-           expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png");
+           expect(scope.parseFailedChannelData(this.brunofinData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
+           expect(scope.parseFailedChannelData(this.channelthatdoesnotexistData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
        });
    });
 });
