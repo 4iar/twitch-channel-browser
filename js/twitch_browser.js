@@ -1,6 +1,27 @@
 "use strict"
 
 angular.module('twitchBrowser', [])
+    .filter('searchFor', function () {
+        return function (channels, searchString) {
+
+            if (!searchString) {
+                return channels;
+            }
+
+            var selectedChannels = [];
+
+            // lowercase this using another function?
+            // need to strip stuff too
+            searchString = searchString.toLowerCase();
+
+            channels.forEach(function (channel) {
+                if (channel.name.toLowerCase().indexOf(searchString) !== -1) {
+                    selectedChannels.push(channel);
+                };
+            });
+            return selectedChannels;
+        };
+    })
     .service('channelSubscriptionService', function() {
         this.names = [];
 

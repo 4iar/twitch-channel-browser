@@ -32,7 +32,14 @@
 
     <div ng-controller="channelGrabber">
 
-        <div ng-repeat="channel in channels" id="channel">
+        <div class="input-group">
+            <input ng-model="searchString" type="text" class="form-control" placeholder="">
+            <span class="input-group-btn">
+                <button ng-click="" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+            </span>
+        </div>
+
+        <div ng-repeat="channel in channels | searchFor:searchString" id="channel">
             <div class="row top-buffer">
                 <div class="col-md-1">
                     <img class="img-circle img-responsive avatar-pic" src="{{ channel.avatarUrl }}">
