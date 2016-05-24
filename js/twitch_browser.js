@@ -12,20 +12,10 @@ angular.module('twitchBrowser', [])
             return this.names;
         };
     })
-    .controller("channelSubscriptionManager", function($scope, channelSubscriptionService) {
+    .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
         var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff", "kjaerbye98", "brunofin", "channelthatdoesnotexist"];
         channelSubscriptionService.addChannelNames(defaultChannelNames);
-
-        $scope.addChannels = function addChannels(channel) {
-            channelSubscriptionService.addChannelNames(channel);
-        };
-        
-        $scope.deleteChannel = function (channel) {
-            channelSubscriptionService.deleteChannel(channel);
-        };
-    })
-    .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
 
         $scope.getAvatarUrl = function (avatarUrl) {
             if (avatarUrl) {
@@ -79,4 +69,3 @@ angular.module('twitchBrowser', [])
 
         $scope.updateChannels();
     });
-
