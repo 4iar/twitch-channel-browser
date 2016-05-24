@@ -1,0 +1,18 @@
+body {
+    background-color: #ffffff;
+}
+
+.top-buffer {
+    margin-top:20px;
+}
+
+.row {
+    border: 0px solid;
+    background-color: #F5F5F5;
+}
+
+.avatar-pic {
+    margin: 10px 0px 10px 0px;
+}
+
+
