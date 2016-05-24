@@ -47,17 +47,22 @@
                     <img class="img-circle img-responsive avatar-pic" src="{{ channel.avatarUrl }}">
                 </div>
 
-                <div class="col-md-11">
+                <div class="col-md-10">
                     <p><h4><a href="{{ channel.url }}" target="_blank">{{ channel.name }}</a></h4></p>
 
                     <p>{{ channel.description }}</p>
 
                     <p ng-if="channel.online"><span class="label label-success">online</span></p>
 
+
                     <p ng-if="!channel.online" ng-switch="channel.error">
                         <span ng-switch-when="false" class="label label-default">offline</span>
                         <span ng-switch-when="true" class="label label-danger">error</span>
                     </p>
+                </div>
+
+                <div class="col-md-1">
+                    <button ng-click="deleteChannel(channel.name)" class="btn btn-default btn-sm delete-button"><i class="fa fa-trash"></i></button>
                 </div>
             </div>
         </div>

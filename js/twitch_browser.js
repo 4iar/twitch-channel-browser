@@ -32,8 +32,25 @@ angular.module('twitchBrowser', [])
         this.getChannelNames = function() {
             return this.names;
         };
+
+        this.deleteChannel = function (channelNameToDelete) {
+            this.names = this.names.filter(function (channelName) {
+                return channelName.toLowerCase() !== channelNameToDelete.toLowerCase();
+            });
+        };
     })
     .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
+
+        $scope.deleteChannel = function (channelNameToDelete) {
+            // remove a channel from the channel subscription service
+            channelSubscriptionService.deleteChannel(channelNameToDelete);
+
+            // and also immediately remove it from the list of parsed channels
+            // -- alternative is to just call $scope.updateChannels() but this would require more requests to be sent
+            $scope.channels = $scope.channels.filter(function (channel) {
+                return channel.name.toLowerCase() !== channelNameToDelete.toLowerCase();
+            });
+        };
 
         $scope.addChannel = function (channelName) {
             channelSubscriptionService.addChannelNames(channelName)
