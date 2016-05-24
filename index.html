@@ -34,8 +34,8 @@
 
     <div ng-controller="channelGrabber">
 
-        <div class="input-group">
-            <input ng-model="searchString" type="text" class="form-control" placeholder="">
+        <div class="input-group" id="search-box">
+            <input ng-model="searchString" type="text" class="form-control " placeholder="">
             <span class="input-group-btn">
                 <button ng-click="addChannel(searchString)" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
             </span>
@@ -66,6 +66,8 @@
                 </div>
             </div>
         </div>
+
+        <div id="bottom-padding"></div>
     </div>
 
 </div>
