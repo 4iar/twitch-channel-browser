@@ -57,8 +57,6 @@ angular.module('twitchBrowser', [])
             $scope.updateChannels();
         };
         
-        var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff", "kjaerbye98", "brunofin", "channelthatdoesnotexist"];
-        channelSubscriptionService.addChannelNames(defaultChannelNames);
 
         $scope.getAvatarUrl = function (avatarUrl) {
             if (avatarUrl) {
@@ -110,5 +108,8 @@ angular.module('twitchBrowser', [])
             });
         };
 
+        var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff", "kjaerbye98", "brunofin", "channelthatdoesnotexist"];
+        channelSubscriptionService.addChannelNames(defaultChannelNames);
+        
         $scope.updateChannels();
     });
