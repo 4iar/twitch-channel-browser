@@ -39,7 +39,7 @@ angular.module('twitchBrowser', [])
             });
         };
     })
-    .controller("channelGrabber", function($scope, $http, channelSubscriptionService) {
+    .controller("channelGrabber", function($scope, $http, channelSubscriptionService, $q) {
 
         $scope.deleteChannel = function (channelNameToDelete) {
             // remove a channel from the channel subscription service
@@ -81,12 +81,12 @@ angular.module('twitchBrowser', [])
             };
         };
 
-        $scope.parseSuccessfulChannelData = function (result) {
+        $scope.parseSuccessfulChannelData = function (result, online) {
             return {
                 'name': result.data.display_name,
                 'url': result.data.url,
                 'description': result.data.status,
-                'online': (function (status) {if (!status) {return false} else {return true}})(result.data.status),
+                'online': online,
                 'avatarUrl': $scope.getAvatarUrl(result.data.logo),
                 'error': false
             };
@@ -94,12 +94,25 @@ angular.module('twitchBrowser', [])
         
         $scope.updateChannels = function () {
             $scope.channels = [];
-            var endpointBaseUrl = 'https://api.twitch.tv/kraken/channels/';
+            // the streams endpoint shows if the channel is online
+            var onlineEndpointBaseUrl = 'https://api.twitch.tv/kraken/streams/';
+            // we also need the channels endpoint to get information about channels that are offline 
+            var offlineEndpointUrl = 'https://api.twitch.tv/kraken/channels/';
 
             channelSubscriptionService.getChannelNames().forEach(function (channelName) {
-                $http.get(endpointBaseUrl + channelName)
-                    .then(function (result) {
-                        $scope.channels.push($scope.parseSuccessfulChannelData(result));
+                var onlineEndpoint = $http.get(onlineEndpointBaseUrl + channelName);
+                var offlineEndpoint = $http.get(offlineEndpointUrl + channelName);
+
+                $q.all([onlineEndpoint, offlineEndpoint])
+                    .then(function (results) {
+                        var onlineEndpoint = results[0];
+                        var offlineEndpoint = results[1];
+
+                        if (onlineEndpoint.data.stream != null) {
+                            $scope.channels.push($scope.parseSuccessfulChannelData(offlineEndpoint, true));
+                        } else {
+                            $scope.channels.push($scope.parseSuccessfulChannelData(offlineEndpoint, false));
+                        };
                     })
                     .catch(function (result) {
                         // handle unavailable or missing channels
@@ -110,6 +123,6 @@ angular.module('twitchBrowser', [])
 
         var defaultChannelNames = ["freecodecamp", "storbeck", "terakilobyte", "habathcx", "RobotCaleb", "thomasballinger", "noobs2ninjas", "beohoff", "kjaerbye98", "brunofin", "channelthatdoesnotexist"];
         channelSubscriptionService.addChannelNames(defaultChannelNames);
-        
+
         $scope.updateChannels();
     });
