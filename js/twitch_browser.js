@@ -95,23 +95,23 @@ angular.module('twitchBrowser', [])
         $scope.updateChannels = function () {
             $scope.channels = [];
             // the streams endpoint shows if the channel is online
-            var onlineEndpointBaseUrl = 'https://api.twitch.tv/kraken/streams/';
+            var streamsEndpointBaseUrl = 'https://api.twitch.tv/kraken/streams/';
             // we also need the channels endpoint to get information about channels that are offline 
-            var offlineEndpointUrl = 'https://api.twitch.tv/kraken/channels/';
+            var channelsEndpointUrl = 'https://api.twitch.tv/kraken/channels/';
 
             channelSubscriptionService.getChannelNames().forEach(function (channelName) {
-                var onlineEndpoint = $http.get(onlineEndpointBaseUrl + channelName);
-                var offlineEndpoint = $http.get(offlineEndpointUrl + channelName);
+                var streamsEndpointRequest = $http.get(streamsEndpointBaseUrl + channelName);
+                var channelsEndpointRequest = $http.get(channelsEndpointUrl + channelName);
 
-                $q.all([onlineEndpoint, offlineEndpoint])
+                $q.all([streamsEndpointRequest, channelsEndpointRequest])
                     .then(function (results) {
-                        var onlineEndpoint = results[0];
-                        var offlineEndpoint = results[1];
+                        var streamsEndpoint = results[0];
+                        var channelsEndpoint = results[1];
 
-                        if (onlineEndpoint.data.stream != null) {
-                            $scope.channels.push($scope.parseSuccessfulChannelData(offlineEndpoint, true));
+                        if (streamsEndpoint.data.stream != null) {
+                            $scope.channels.push($scope.parseSuccessfulChannelData(channelsEndpoint, true));
                         } else {
-                            $scope.channels.push($scope.parseSuccessfulChannelData(offlineEndpoint, false));
+                            $scope.channels.push($scope.parseSuccessfulChannelData(channelsEndpoint, false));
                         };
                     })
                     .catch(function (result) {
