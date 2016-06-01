@@ -22,3 +22,30 @@
 #bottom-padding {
     margin-bottom: 60px;
 }
+
+.float-top-right {
+    float: right;
+}
+
+.github-button {
+    transition: background-color .2s;
+    display: inline-block;
+    padding: .6em 1em;
+    background: rgba(147, 128, 108, .15); /*background-color: #46b980;*/
+    border: 0; /* prev: 2px */
+    font-size: .8125em;
+    font-weight: 300;
+    line-height: normal;
+    white-space: nowrap;
+
+    margin:0 0 1em;
+    margin:0 1em 0 0;
+    color: #fff
+}
+
+.github-button:active,
+.github-button:focus,
+.github-button:hover {
+    text-decoration: none;
+    text-color: #389466;
+}
