@@ -6,3 +6,5 @@
 
 #####[Hosted on gh-pages](https://4iar.github.io/twitch-channel-browser/)
 
+![demo](https://raw.githubusercontent.com/4iar/twitch-channel-browser/master/demo.png)
+
