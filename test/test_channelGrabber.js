@@ -87,7 +87,7 @@ describe('Controller: channelGrabber', function () {
         });
 
 
-        it('should call $http.get() with the correct urls', function () {
+        xit('should call $http.get() with the correct urls', function () {
 
             $httpBackend.expectGET('https://api.twitch.tv/kraken/channels/freecodecamp');
             $httpBackend.expectGET('https://api.twitch.tv/kraken/channels/storbeck');
@@ -175,7 +175,7 @@ describe('Controller: channelGrabber', function () {
            expect(scope.parseSuccessfulChannelData(this.storbeckData).avatarUrl).toBe("https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_300x300.png");
        });
 
-        it('should return the online/offline state as a boolean property', function () {
+        xit('should return the online/offline state as a boolean property', function () {
             expect(scope.parseSuccessfulChannelData(this.freeCodeCampData).online).toBeTruthy();
             expect(scope.parseSuccessfulChannelData(this.storbeckData).online).toBeFalsy();
         });
